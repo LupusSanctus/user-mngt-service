@@ -1,0 +1,13 @@
+database:
+  driverClass: org.h2.Driver
+  # in-memory (named) H2 connection mode
+  url: jdbc:h2:mem:um_test
+  user: user_mngt_test
+  password:
+  properties:
+    charSet: UTF-8
+  validationQuery: "/* DB Health Check */ SELECT 1"
+  # the max amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 3s
+  validationQueryTimeout: 3s
+test: test_yml
