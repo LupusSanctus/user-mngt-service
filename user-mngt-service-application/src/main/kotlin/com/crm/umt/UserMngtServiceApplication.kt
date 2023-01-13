@@ -15,7 +15,7 @@ import org.kodein.di.newInstance
 class UserMngtServiceApplication : Application<DropwizardUserMngtConfiguration>() {
     // TBD: reimplement/ clean code | add healthcheck!
     override fun run(configuration: DropwizardUserMngtConfiguration, environment: Environment) {
-        val userResource: UserController by UserMngtDIConfiguration.userMngtDIContainer.newInstance {
+        val userResource: UserController by UserMngtDIConfiguration.userMngtDiContainer.newInstance {
             UserController(instance())
         }
         environment.jersey().register(userResource)

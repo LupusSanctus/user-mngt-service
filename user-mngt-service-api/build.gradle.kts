@@ -1,4 +1,3 @@
-val dropwizardVersion: String by rootProject.extra
 val mapstructVersion: String by rootProject.extra
 
 
@@ -20,9 +19,6 @@ repositories {
 
 // TBD: remove extra dependencies
 dependencies {
-    implementation("io.dropwizard:dropwizard-core:$dropwizardVersion")
-
-    // Mapstruct
     implementation("org.mapstruct:mapstruct:${mapstructVersion}.Final")
     annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}.Final")
     kapt("org.mapstruct:mapstruct-processor:${mapstructVersion}.Final")

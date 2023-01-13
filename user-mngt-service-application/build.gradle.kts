@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val dropwizardVersion: String by rootProject.extra
-val jvmVersion: String by rootProject.extra
+val kodeinVersion: String by rootProject.extra
 
 
 plugins {
@@ -28,7 +28,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 
     // github.com/kosi-libs/Kodein#kotlin--jvm-compatibility
-    api("org.kodein.di:kodein-di:7.16.0")
+    api("org.kodein.di:kodein-di:$kodeinVersion")
 
     implementation(project(":user-mngt-service-web"))
     implementation(project(":user-mngt-service-api"))

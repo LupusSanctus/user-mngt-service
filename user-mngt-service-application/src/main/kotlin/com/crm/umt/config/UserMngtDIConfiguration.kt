@@ -23,7 +23,7 @@ object UserMngtDIConfiguration {
         bind { singleton { UserController(instance()) } }
     }
 
-    val userMngtDIContainer = DI {
+    val userMngtDiContainer = DI {
         importAll(
             userMngtApiModule,
             userMngtRepositoryModule,
