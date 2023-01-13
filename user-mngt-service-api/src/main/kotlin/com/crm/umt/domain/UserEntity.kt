@@ -1,7 +1,8 @@
 package com.crm.umt.domain
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.Instant
+
+import com.fasterxml.jackson.annotation.JsonProperty
 
 data class UserEntity(
     @JsonProperty

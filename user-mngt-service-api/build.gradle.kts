@@ -1,5 +1,5 @@
 val mapstructVersion: String by rootProject.extra
-
+val dropwizardVersion: String by rootProject.extra
 
 plugins {
     val kotlinJvmVersion = "1.7.21"
@@ -19,6 +19,8 @@ repositories {
 
 // TBD: remove extra dependencies
 dependencies {
+    implementation("io.dropwizard:dropwizard-core:$dropwizardVersion")
+
     implementation("org.mapstruct:mapstruct:${mapstructVersion}.Final")
     annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}.Final")
     kapt("org.mapstruct:mapstruct-processor:${mapstructVersion}.Final")
