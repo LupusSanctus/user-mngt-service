@@ -14,6 +14,10 @@ The service was developed using the following basic stack:
 * ``gradle build``
 * ``gradle run``
 
+If there were no errors in the previous steps, the user service will listen on 8080 port for the requests.
+For example:
+``http://localhost:8080/users``
+
 ### Endpoints
 **1. POST** `/users`
 * Request includes: email, first name, last name fields.

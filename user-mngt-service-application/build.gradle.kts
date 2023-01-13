@@ -27,7 +27,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 
-    // TBD: check and remove extra
+    // github.com/kosi-libs/Kodein#kotlin--jvm-compatibility
+    api("org.kodein.di:kodein-di:7.16.0")
+
     implementation(project(":user-mngt-service-web"))
     implementation(project(":user-mngt-service-api"))
     implementation(project(":user-mngt-service-impl"))

@@ -1,23 +1,12 @@
 package com.crm.umt.dto
 
-import java.sql.Timestamp
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
+import java.time.Instant
 
-data class UserDto (
-    @NotNull
+data class UserDto(
     val id: Int,
     val email: String,
-
-    @NotBlank
     val firstName: String,
-
-    @NotBlank
     val lastName: String,
-
-    @NotNull
-    val createdAt: Timestamp,
-
-    @NotNull
-    val deletedAt: Timestamp
+    val createdAt: Instant,
+    val deletedAt: Instant
 )

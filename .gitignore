@@ -2,3 +2,7 @@
 /.gradle/
 /build/
 /gradle/
+*/build/
+# in case of MacOS env
+*/.DS_Store
+/.DS_Store/

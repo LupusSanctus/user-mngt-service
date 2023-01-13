@@ -1,32 +1,46 @@
 package com.crm.umt.service
 
-import com.crm.umt.domain.UserEntity
 import com.crm.umt.dto.UserDto
-import com.crm.umt.mapper.UserMapper
+import java.time.Instant
 import com.crm.umt.repository.UserRepository
-import com.crm.umt.service.UserService
-import java.sql.Timestamp
 
 class UserServiceImpl(
-    // private val userRepository: UserRepository,
+    //private val userRepository: UserRepository,
     // private val userMapper: UserMapper
 ) : UserService {
-    override fun findAllUsers(): List<UserDto> {
-        // TBD: move to test. Use repository implementation.
-        val userList = listOf(
-            UserDto(
-                1,                // id
-                "test@gmail.com", // e-mail
-                "John",           // name
-                "Doe",            // last name
-                Timestamp(System.currentTimeMillis()), // createdAt
-                Timestamp(System.currentTimeMillis()) // deletedAt
-            )
+    // TBD: move to test. Use repository implementation.
+    companion object {
+        val userDtoBlob = UserDto(
+            id = 1,
+            email = "test@gmail.com",
+            firstName = "John",
+            lastName = "Doe",
+            createdAt = Instant.now(),
+            deletedAt = Instant.now()
         )
+    }
+
+    override fun createUser(userDto: UserDto) {
+        // TBD
+    }
+
+    override fun findUserById(userId: Int): UserDto {
+        return userDtoBlob;
+    }
+
+    override fun findAllUsers(): List<UserDto> {
 //        // TBD: after DI - uncomment
 //        .map { userEntity ->
 //            userMapper.convertToUserDto(userEntity)
 //        }
-        return userList
+        return listOf(userDtoBlob)
+    }
+
+    override fun updateUser(userDto: UserDto) {
+        // TBD
+    }
+
+    override fun deleteUserById(userId: Int) {
+        // TBD
     }
 }
