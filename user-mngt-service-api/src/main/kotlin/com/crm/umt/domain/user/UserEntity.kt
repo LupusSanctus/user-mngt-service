@@ -1,4 +1,4 @@
-package com.crm.umt.domain
+package com.crm.umt.domain.user
 
 import java.time.Instant
 

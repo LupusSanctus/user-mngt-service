@@ -16,7 +16,11 @@ The service was developed using the following basic stack:
 
 If there were no errors in the previous steps, the user service will listen on 8080 port for the requests.
 For example:
-``http://localhost:8080/users``
+``http://localhost:<PORT_NUMBER>/users``
+
+In order to use Swagger UI representation, navigate to the following link:
+``http://localhost:<PORT_NUMBER>/swagger``,
+where ``PORT_NUMBER`` is ``8080`` by default.
 
 ### Endpoints
 **1. POST** `/users`

@@ -17,11 +17,11 @@ repositories {
     mavenCentral()
 }
 
-// TBD: remove extra dependencies
 dependencies {
-    implementation("io.dropwizard:dropwizard-core:$dropwizardVersion")
+    api("io.dropwizard:dropwizard-core:$dropwizardVersion")
+    implementation("io.dropwizard:dropwizard-jdbi3:$dropwizardVersion")
 
-    implementation("org.mapstruct:mapstruct:${mapstructVersion}.Final")
+    api("org.mapstruct:mapstruct:${mapstructVersion}.Final")
     annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}.Final")
     kapt("org.mapstruct:mapstruct-processor:${mapstructVersion}.Final")
 

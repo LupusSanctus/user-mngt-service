@@ -4,23 +4,32 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 import io.dropwizard.Configuration
 import io.dropwizard.db.DataSourceFactory
+import io.dropwizard.flyway.FlywayFactory
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration
 
-// TBD: remove extra members
 class DropwizardUserMngtConfiguration(
-    val database: DataSourceFactory = DataSourceFactory(),
-    private val test: String = "test"
+    private val database: DataSourceFactory = DataSourceFactory(),
+    private val flyway: FlywayFactory = FlywayFactory(),
+    private val swagger: SwaggerBundleConfiguration = SwaggerBundleConfiguration()
 ) : Configuration() {
     companion object {
         const val DB: String = "database"
+        const val FLYWAY: String = "flyway"
+        const val SWAGGER: String = "swagger"
     }
 
-//    @JsonProperty(DB)
-//    fun getDataSourceFactory(): DataSourceFactory? {
-//        return database
-//    }
+    @JsonProperty(DB)
+    fun getDatabase(): DataSourceFactory {
+        return database
+    }
 
-    @JsonProperty("test")
-    fun getTest(): String {
-        return test
+    @JsonProperty(FLYWAY)
+    fun getFlyway(): FlywayFactory {
+        return flyway
+    }
+
+    @JsonProperty(SWAGGER)
+    fun getSwagger(): SwaggerBundleConfiguration {
+        return swagger
     }
 }

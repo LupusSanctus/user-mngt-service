@@ -10,3 +10,17 @@ database:
   # the max amount of time to wait on an empty pool before throwing an exception
   maxWaitForConnection: 3s
   validationQueryTimeout: 3s
+
+flyway:
+  locations:
+    - db/migration
+#  baselineOnMigrate:
+#    - true
+#  cleanOnValidationError:
+#    - true
+
+swagger:
+  resourcePackage: com.crm.umt.controller
+  title: User Management Service
+
+#server:

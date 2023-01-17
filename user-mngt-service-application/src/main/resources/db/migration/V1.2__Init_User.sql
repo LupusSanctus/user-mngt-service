@@ -1,0 +1,5 @@
+COPY USER (E_MAIL, FIRST_NAME, LAST_NAME, CREATED_AT, DELETED_AT) FROM stdin delimiter ',' quote '"' csv;
+adfs@gmail.com,Hello,World,2020-08-14 01:27:19.460307+02,
+adfs2@gmail.com,Hello2,World2,2019-06-08 19:10:51.828891+00,2019-12-28 02:08:02.856612+00
+adfs3@gmail.com,Test,Usr,2018-06-08 19:10:51.828891+00,2018-12-28 02:08:02.856612+00
+adfs4@gmail.com,Test1,Usr1,2022-06-08 19:10:51.828891+00,
