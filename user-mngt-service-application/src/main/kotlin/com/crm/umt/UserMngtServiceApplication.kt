@@ -1,26 +1,30 @@
 package com.crm.umt
 
+import com.codahale.metrics.MetricRegistry
+import com.crm.umt.bundle.createFlywayBundle
+import com.crm.umt.bundle.createSwaggerBundle
 import com.crm.umt.config.DropwizardUserMngtConfiguration
 import com.crm.umt.config.UserMngtDiConfiguration
 import com.crm.umt.controller.UserController
+
 import io.dropwizard.Application
-import io.dropwizard.db.DataSourceFactory
 import io.dropwizard.flyway.FlywayBundle
-import io.dropwizard.flyway.FlywayFactory
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
-import io.federecio.dropwizard.swagger.SwaggerBundle
-import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration
-import org.flywaydb.core.Flyway
+
 import org.kodein.di.instance
 import org.kodein.di.newInstance
 
 
 class UserMngtServiceApplication : Application<DropwizardUserMngtConfiguration>() {
+    private val flywayBundle: FlywayBundle<DropwizardUserMngtConfiguration> = createFlywayBundle()
 
     override fun run(configuration: DropwizardUserMngtConfiguration, environment: Environment) {
-//        val flyway: Flyway = Flyway()
-//        flyway.migrate()
+        flywayBundle.getFlywayFactory(configuration)
+            .build(
+                configuration.getDatabase()
+                .build(MetricRegistry(), "Flyway")
+            ).migrate()
 
         val userResource: UserController by UserMngtDiConfiguration.getUserMngtDiContainer(
             configuration.getDatabase(),
@@ -30,23 +34,8 @@ class UserMngtServiceApplication : Application<DropwizardUserMngtConfiguration>(
     }
 
     override fun initialize(bootstrap: Bootstrap<DropwizardUserMngtConfiguration>) {
-        // Flyway
-        bootstrap.addBundle(object : FlywayBundle<DropwizardUserMngtConfiguration>() {
-            override fun getDataSourceFactory(configuration: DropwizardUserMngtConfiguration): DataSourceFactory {
-                return configuration.getDatabase()
-            }
-
-            override fun getFlywayFactory(configuration: DropwizardUserMngtConfiguration): FlywayFactory {
-                return configuration.getFlyway()
-            }
-        })
-
-        // Swagger
-        bootstrap.addBundle(object : SwaggerBundle<DropwizardUserMngtConfiguration>() {
-            override fun getSwaggerBundleConfiguration(configuration: DropwizardUserMngtConfiguration): SwaggerBundleConfiguration {
-                return configuration.getSwagger()
-            }
-        })
+        bootstrap.addBundle(flywayBundle)
+        bootstrap.addBundle(createSwaggerBundle())
     }
 }
 
