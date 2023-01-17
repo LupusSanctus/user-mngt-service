@@ -14,13 +14,15 @@ database:
 flyway:
   locations:
     - db/migration
-#  baselineOnMigrate:
-#    - true
-#  cleanOnValidationError:
-#    - true
 
 swagger:
   resourcePackage: com.crm.umt.controller
   title: User Management Service
 
-#server:
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081

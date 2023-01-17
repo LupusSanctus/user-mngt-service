@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val dropwizardVersion: String by rootProject.extra
 val dropwizardSwagger: String by rootProject.extra
@@ -9,6 +10,7 @@ val kodeinVersion: String by rootProject.extra
 plugins {
     kotlin("jvm") version "1.7.21"
     application
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "com.crm"
@@ -20,6 +22,16 @@ repositories {
 
 val userMngtEntryClass = "com.crm.umt.UserMngtServiceApplicationKt"
 
+tasks.withType<ShadowJar> {
+    mergeServiceFiles()
+    exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
+    manifest {
+        attributes["Implementation-Title"] = rootProject.name
+        attributes["Implementation-Version"] = rootProject.version
+        attributes["Main-Class"] = userMngtEntryClass
+    }
+    archiveFileName.set("${rootProject.name}-${rootProject.version}.jar")
+}
 
 dependencies {
     api("com.smoketurner:dropwizard-swagger:$dropwizardSwagger")
