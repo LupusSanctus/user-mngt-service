@@ -1,7 +1,7 @@
 database:
   driverClass: org.h2.Driver
   # in-memory (named) H2 connection mode
-  url: jdbc:h2:mem:um_test
+  url: jdbc:h2:mem:test
   user: user_mngt_test
   password:
   properties:
