@@ -5,10 +5,11 @@ DropWizard user management service provides CRUD operations for the users.
 Follow the instructions to run the project on your local machine for testing and/ or development.
 
 ### Prerequisites
-The service was developed using the following basic stack:
+The service was implemented using the following basic stack:
 1. JVM: corretto-17.0.5
 2. Gradle: 7.4.2
-3. KotlinJpsPluginSettings: 1.7.21
+3. Flyway: 0.7.0-1
+4. KotlinJpsPluginSettings: 1.7.21
 
 ### Starting the Application
 * ``gradle build``
