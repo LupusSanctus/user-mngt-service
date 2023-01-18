@@ -9,6 +9,9 @@ import io.dropwizard.db.DataSourceFactory
 import io.dropwizard.jdbi3.JdbiFactory
 import io.dropwizard.setup.Environment
 import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.core.kotlin.KotlinPlugin
+import org.jdbi.v3.sqlobject.SqlObjectPlugin
+import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -26,7 +29,10 @@ object UserMngtDiConfiguration {
                         environment,
                         databaseSource,
                         "h2_db"
-                    )
+                    ).apply {
+                        installPlugin(SqlObjectPlugin())
+                        installPlugin(KotlinPlugin())
+                        installPlugin(KotlinSqlObjectPlugin())}
                 }
             }
         }

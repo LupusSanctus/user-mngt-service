@@ -1,4 +1,4 @@
-package com.crm.umt.bundle
+package com.crm.umt.utils
 
 import com.crm.umt.config.DropwizardUserMngtConfiguration
 import io.dropwizard.db.DataSourceFactory
@@ -6,7 +6,6 @@ import io.dropwizard.flyway.FlywayBundle
 import io.dropwizard.flyway.FlywayFactory
 import io.federecio.dropwizard.swagger.SwaggerBundle
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration
-
 
 fun createFlywayBundle() = object : FlywayBundle<DropwizardUserMngtConfiguration>() {
     override fun getDataSourceFactory(configuration: DropwizardUserMngtConfiguration): DataSourceFactory {

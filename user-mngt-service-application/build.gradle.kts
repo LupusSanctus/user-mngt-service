@@ -33,19 +33,33 @@ tasks.withType<ShadowJar> {
     archiveFileName.set("${rootProject.name}-${rootProject.version}.jar")
 }
 
+val jdbiVersion = "3.25.0"
+val flyWay = "0.7.0-1"
+val h2db = "1.4.200"
+val jacksonModuleKotlin = "2.10.5"
+
 dependencies {
     api("com.smoketurner:dropwizard-swagger:$dropwizardSwagger")
+
     implementation("io.dropwizard:dropwizard-core:$dropwizardVersion")
     implementation("io.dropwizard:dropwizard-jdbi3:$dropwizardVersion")
+
+    // registerKotlinModule
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlin")
+
+    // Kotlin JDBI plugins
+    implementation("org.jdbi:jdbi3-core:$jdbiVersion")
+    implementation("org.jdbi:jdbi3-kotlin:$jdbiVersion")
+    implementation("org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion")
 
     // github.com/kosi-libs/Kodein#kotlin--jvm-compatibility
     api("org.kodein.di:kodein-di:$kodeinVersion")
 
     // in order to avoid: ClassNotFoundException: org.h2.Driver
-    runtimeOnly("com.h2database:h2:1.4.200")
+    runtimeOnly("com.h2database:h2:$h2db")
 
     // Flyway migration
-    implementation("io.dropwizard.modules:dropwizard-flyway:0.7.0-1")
+    implementation("io.dropwizard.modules:dropwizard-flyway:$flyWay")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
