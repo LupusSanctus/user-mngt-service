@@ -2,7 +2,8 @@ package com.crm.umt.repository
 
 import com.crm.umt.constants.UserAttribute
 import com.crm.umt.domain.user.UserEntity
-import com.crm.umt.domain.user.UserReducedEntity
+import com.crm.umt.domain.user.UserCreateEntity
+import com.crm.umt.domain.user.UserUpdateEntity
 import com.crm.umt.repository.db.utils.Order
 
 import org.jdbi.v3.sqlobject.customizer.Bind
@@ -16,12 +17,12 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 interface UserRepository {
     @SqlUpdate(
         """
-        INSERT INTO user (e_mail, first_name, last_name)
-        VALUES (:email, :firstName, :lastName)
+        INSERT INTO user (e_mail, first_name, last_name, created_at)
+        VALUES (:userEntity.email, :userEntity.firstName, :userEntity.lastName, CURRENT_TIMESTAMP)
         """
     )
-    @GetGeneratedKeys
-    fun insert(@BindBean userEntity: UserReducedEntity): UserEntity
+    @GetGeneratedKeys("id", "e_mail", "first_name", "last_name", "created_at", "deleted_at")
+    fun insert(userEntity: UserCreateEntity): UserEntity
 
     @SqlQuery(
         """
@@ -29,7 +30,15 @@ interface UserRepository {
         WHERE id = :userId
         """
     )
-    fun findUserById(@Bind("userId") userId: Int): UserEntity
+    fun findUserById(@Bind("userId") userId: Int): UserEntity?
+
+    @SqlQuery(
+        """
+        SELECT * FROM user
+        WHERE e_mail = :email
+        """
+    )
+    fun findUserByEmail(@Bind("email") email: String): UserEntity?
 
     @SqlQuery(
         """
@@ -50,12 +59,12 @@ interface UserRepository {
     @SqlUpdate(
         """
         UPDATE user
-        SET e_mail = :email, first_name = :firstName, last_name = :lastName
+        SET first_name = :userEntity.firstName, last_name = :userEntity.lastName
         WHERE id = :userId
         """
     )
-    @GetGeneratedKeys
-    fun update(@Bind("userId") userId: Int, @BindBean userEntity: UserReducedEntity): UserEntity
+    @GetGeneratedKeys("id", "e_mail", "first_name", "last_name", "created_at", "deleted_at")
+    fun update(@Bind("userId") userId: Int, userEntity: UserUpdateEntity): UserEntity
 
     @SqlUpdate(
         """

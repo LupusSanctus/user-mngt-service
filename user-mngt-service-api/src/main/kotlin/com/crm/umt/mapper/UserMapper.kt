@@ -15,6 +15,8 @@ import org.mapstruct.ReportingPolicy
 )
 interface UserMapper {
     fun convertToUserDto(userEntity: UserEntity): User
+    fun convertToNullableUserDto(userEntity: UserEntity?): User?
+
     fun convertToUser(userDto: User): UserEntity
 
     fun convertToUserCreateDto(userCreateEntity: UserCreateEntity): UserCreate
