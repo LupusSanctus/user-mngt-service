@@ -1,15 +1,13 @@
 package com.crm.umt.repository
 
 import com.crm.umt.constants.UserAttribute
-import com.crm.umt.domain.user.UserEntity
 import com.crm.umt.domain.user.UserCreateEntity
+import com.crm.umt.domain.user.UserEntity
 import com.crm.umt.domain.user.UserUpdateEntity
 import com.crm.umt.repository.db.utils.Order
 
 import org.jdbi.v3.sqlobject.customizer.Bind
-import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.customizer.Define
-
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
@@ -59,7 +57,7 @@ interface UserRepository {
     @SqlUpdate(
         """
         UPDATE user
-        SET first_name = :userEntity.firstName, last_name = :userEntity.lastName
+        SET first_name = coalesce(:userEntity.firstName, first_name), last_name = coalesce(:userEntity.lastName, last_name)
         WHERE id = :userId
         """
     )
@@ -73,5 +71,6 @@ interface UserRepository {
         WHERE id = :userId
         """
     )
-    fun deleteUserById(@Bind("userId") userId: Int)
+    @GetGeneratedKeys("id", "e_mail", "first_name", "last_name", "created_at", "deleted_at")
+    fun deleteUserById(@Bind("userId") userId: Int): UserEntity
 }

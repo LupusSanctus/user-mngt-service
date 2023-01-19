@@ -1,6 +1,5 @@
 package com.crm.umt.service
 
-import java.time.Instant
 import com.crm.umt.constants.UserAttribute
 import com.crm.umt.domain.user.UserEntity
 import com.crm.umt.dto.user.User
@@ -9,6 +8,7 @@ import com.crm.umt.dto.user.UserUpdate
 import com.crm.umt.mapper.UserMapper
 import com.crm.umt.repository.UserRepository
 import com.crm.umt.repository.db.utils.Order
+import com.crm.umt.repository.exception.handleSqlException
 
 class UserServiceImpl(
     private val userRepository: UserRepository,
@@ -47,14 +47,16 @@ class UserServiceImpl(
 
     override fun updateUser(userId: Int, userUpdateDto: UserUpdate): User? {
         return userMapper.convertToUserDto(
-            userRepository.update(
-                userId,
-                userMapper.convertToUserUpdate(userUpdateDto)
-            )
+            handleSqlException {
+                userRepository.update(
+                    userId,
+                    userMapper.convertToUserUpdate(userUpdateDto)
+                )
+            }
         )
     }
 
-    override fun deleteUserById(userId: Int) {
-        userRepository.deleteUserById(userId)
+    override fun deleteUserById(userId: Int): User {
+        return userMapper.convertToUserDto(userRepository.deleteUserById(userId))
     }
 }

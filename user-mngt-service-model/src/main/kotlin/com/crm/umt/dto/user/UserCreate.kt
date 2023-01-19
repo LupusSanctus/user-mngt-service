@@ -1,6 +1,7 @@
 package com.crm.umt.dto.user
 
 import javax.validation.constraints.Email
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect
@@ -19,6 +20,7 @@ import com.crm.umt.constants.UserModelConstants.LAST_NAME
 )
 data class UserCreate(
     @field:Email
+    @field:NotBlank
     @ApiModelProperty(
         value = UserModelConstants.EMAIL_INFO,
         example = UserModelConstants.EMAIL_USAGE
@@ -27,6 +29,7 @@ data class UserCreate(
     val email: String,
 
     @field:Size(min = 1, max = 100)
+    @field:NotBlank
     @ApiModelProperty(
         value = UserModelConstants.FIRST_NAME_INFO,
         example = UserModelConstants.FIRST_NAME_USAGE
@@ -35,6 +38,7 @@ data class UserCreate(
     val firstName: String,
 
     @field:Size(min = 1, max = 100)
+    @field:NotBlank
     @ApiModelProperty(
         value = UserModelConstants.LAST_NAME_INFO,
         example = UserModelConstants.LAST_NAME_USAGE

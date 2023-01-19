@@ -20,5 +20,5 @@ interface UserService {
         offsetUserNumber: Int
     ): List<User>
     fun updateUser(userId: Int, userUpdateDto: UserUpdate): User?
-    fun deleteUserById(userId: Int)
+    fun deleteUserById(userId: Int): User
 }

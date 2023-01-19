@@ -29,6 +29,7 @@ import com.crm.umt.dto.user.User
 import com.crm.umt.dto.user.UserCreate
 import com.crm.umt.dto.user.UserUpdate
 import com.crm.umt.repository.db.utils.Order
+import com.crm.umt.repository.exception.BaseSqlException
 import com.crm.umt.service.UserService
 
 import io.swagger.annotations.Api
@@ -114,12 +115,22 @@ class UserController(private val userService: UserService) {
         @ApiParam("User data to update", required = true)
         userUpdateDto: UserUpdate
     ): Response {
-        val userById = userService.findUserById(userId)
-        if (userById == null || userById.deletedAt != null)
+        val userById = userService.findUserById(userId) ?: throw WebApplicationException(format(USER_NOT_FOUND, userId), Response.Status.NOT_FOUND)
+        if (userById.deletedAt != null)
             throw WebApplicationException(format(USER_NOT_FOUND, userId), Response.Status.NOT_FOUND)
 
+        val updatedUser : User?
+        try{
+            updatedUser = userService.updateUser(userId, userUpdateDto)
+            return Response.status(HttpStatus.OK_200)
+                .entity(userService.updateUser(userId, userUpdateDto))
+                .build()
+        } catch (ex : BaseSqlException) {
+            throw WebApplicationException(ex.message, ex.errorCode)
+        }
+
         return Response.status(HttpStatus.OK_200)
-            .entity(userService.updateUser(userId, userUpdateDto))
+            .entity(updatedUser)
             .build()
     }
 
@@ -134,9 +145,9 @@ class UserController(private val userService: UserService) {
         @ApiParam("User ID to delete", required = true)
         @PathParam("id")
         userId: Int
-    ) {
-        val userById = userService.findUserById(userId)
-        if (userById == null || userById.deletedAt != null)
+    ) : User {
+        val userById = userService.findUserById(userId) ?: throw WebApplicationException(format(USER_NOT_FOUND, userId), Response.Status.NOT_FOUND)
+        if (userById.deletedAt != null)
             throw WebApplicationException(format(USER_NOT_FOUND, userId), Response.Status.NOT_FOUND)
 
         return userService.deleteUserById(userId)
