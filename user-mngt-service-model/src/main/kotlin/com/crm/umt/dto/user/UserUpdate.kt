@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiModelProperty
     fieldVisibility = JsonAutoDetect.Visibility.ANY
 )
 data class UserUpdate(
-    @field:NotBlank
     @field:Size(min = 1, max = 100)
     @ApiModelProperty(
         value = UserModelConstants.FIRST_NAME_INFO,
@@ -26,7 +25,6 @@ data class UserUpdate(
     @JsonProperty(FIRST_NAME)
     val firstName: String?,
 
-    @field:NotBlank
     @field:Size(min = 1, max = 100)
     @ApiModelProperty(
         value = UserModelConstants.LAST_NAME_INFO,
